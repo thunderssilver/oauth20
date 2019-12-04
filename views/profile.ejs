@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+        <meta charset="utf-8">
+        <title>Homepage</title>
+        <style>
+            body{
+                font-family: arial;
+                margin: 0;
+            }
+            nav{
+                background: #0C54F7;
+                padding: 20px 10px;
+            }
+            nav ul{
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 0;
+            }
+            nav li{
+                list-style-type: none;
+                display: inline-block;
+                margin: 0 10px 0 0;
+            }
+            nav a{
+                color: #fff;
+                font-size: 18px;
+                background: rgba(255,255,255,0.2);
+                text-decoration: none;
+                padding: 10px;
+                display: block;
+            }
+            main, header{
+                max-width: 960px;
+                margin: 30px auto;
+                padding: 0 10px;
+                color: #333;
+            }
+            main img{
+                width: 40px;
+                margin-right: 10px;
+                position: relative;
+                top: 12px;
+            }
+            main p{
+                display: inline-block;
+            }
+            .avatar {
+                  vertical-align: middle;
+                  width: 250px;
+                  height: 250px;
+                  border-radius: 50%;
+                }
+        </style>
+    </head>
+    <body>
+        <nav>
+            
+                <% if (user) { %>
+                <li><a href="/auth/logout">Log out</a></li>
+                <% } else { %>
+                <li><a href="/auth/login">Login</a></li>
+                <% } %>
+                
+                <li><a href="/">Homepage</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </nav>
+        <header>
+            <ul><% if(user.google.googleId) {%>
+            <h1>Welcome to your profile, <%= user.google.username %></h1>
+        </header>
+        <main>
+            <img src="<%= user.google.thumbnail %>"  class="avatar"/>
+            <p>profile thumbnail</p>
+        </main>
+            <!-- facebook info-->
+            <%}else  {%>
+            <h1>Fb</h1>
+    <div class="col-sm-12">
+            <div class="well">
+                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+
+                <p>
+                    <strong>id</strong>: <%= user.facebook.id %><br>
+                    <!--<strong>token</strong>: <%= user.facebook.token %><br>-->
+                    <strong>email</strong>: <%= user.facebook.email %><br>
+                    <strong>name</strong>: <%= user.facebook.name %>
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+    <% } %>
+    <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+
+                    <p>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>email</strong>: <%= user.local.username %><br>
+                        <strong>password</strong>: <%= user.local.password %>
+                    </p>
+
+            </div>
+        </div>
+
+    </body>
+</html>
